@@ -18,6 +18,7 @@ To communicate with the Akamai Intelligent Edge platform securely, both tools re
 
 * **`requests`**: Handles the underlying synchronous HTTP/HTTPS communication layer to Akamai's Edge API endpoints.
 * **`edgegrid-python` (`akamai-edgegrid`)**: The official Akamai authentication signing library. It intercepts outgoing requests and hooks into them to generate custom HTTP headers (`EG1-HMAC-SHA256`) required by Akamai API gateways.
+*(for Streamlit only)*:
 * **`pandas`**: An advanced data analysis engine used to transform raw, jagged JSON rule-tree payloads into clean, flat relational tables.
 * **`streamlit`** *(Required for Web App version only)*: A reactive UI framework that transforms python scripts into data dashboards natively, running a local web-server interface.
 
