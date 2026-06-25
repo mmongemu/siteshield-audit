@@ -69,7 +69,7 @@ client_token = akab-xxxx-xxxx-xxxx
 
 --
 
-## 1. Standalone CLI Version (```siteshield-origins-standalone.py```)
+## 1. Standalone CLI Version (```siteshield-auditor-cli.py```)
 Optimized for system engineers and terminal purists who need to audit accounts without launching a browser process.
 
 ### How to Use:
@@ -85,7 +85,7 @@ python siteshield_auditor_cli.py
 
 5. Confirm execution. The script will safely crawl through the property tree using a 3-second safety delay and write the final output to a clean CSV report (```siteshield_terminal_audit.csv```) in your current working directory.
 
-## 2. Streamlit Web Version (``2_SiteShield_Origins.py```)
+## 2. Streamlit Web Version (```2_SiteShield_Auditor.py```)
 
 The Streamlit web application provides a responsive UI, real-time metrics, dynamic countdown bars, and direct CSV downloading.
 
@@ -99,7 +99,7 @@ source tool-env/bin/activate
 
 2. Launch the application server:
 ```bash
-streamlit run 2_SiteShield_Origins.py
+streamlit run 2_SiteShield_Auditor.py
 ```
 
 3. The application will automatically map local system ports and open inside a tab in your default browser (typically at http://localhost:8501).
@@ -118,7 +118,7 @@ your-existing-toolbox/
 │
 └── pages/                   # Multi-page system directory
     ├── 1_Project_Matrix.py  # Pre-existing internal pages...
-    └── 2_SiteShield_Origins.py  # <-- Place this script here
+    └── 2_SiteShield_Auditor.py  # <-- Place this script here
 ```
 #### 2. Automatic Integration Mechanics
 - Sidebar Routing: Streamlit automatically detects files inside the pages/ directory. On your next app refresh, "2 Site Shield Origins" will instantly appear as an option in your global sidebar navigation menu.
