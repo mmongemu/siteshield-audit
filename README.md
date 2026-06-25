@@ -9,43 +9,59 @@ This repository includes two versions of the tool:
 Both scripts implement **Recursive Tree Crawling** to locate deeply nested configuration behaviors and include **Exponential Backoff Automation** to safely recover from `429 Rate Limit` thresholds without losing data.
 
 ---
+## Core Dependencies & Installation Matrix
 
-## Deep Dive: Dependencies & Infrastructure Setup
+To communicate with the Akamai Intelligent Edge platform securely, these tools rely on specific Python libraries. The requirements change depending on whether you are running the lightweight terminal scanner or the full interactive web application.
 
-To communicate with the Akamai Intelligent Edge platform securely, both tools rely on a specific ecosystem of Python libraries. Before executing the code, you must satisfy both the **local software dependencies** and the **EdgeGrid authentication requirements**.
+### 1. Library Frameworks Explained
 
-### 1. Software Dependencies Explained
+* **`requests`** *(Required for BOTH)*: Handles the underlying synchronous HTTP/HTTPS communication layer to Akamai's Edge API endpoints.
+* **`edgegrid-python` (`akamai-edgegrid`)** *(Required for BOTH)*: The official Akamai authentication signing library. It intercepts outgoing network hooks to generate custom cryptographically signed headers (`EG1-HMAC-SHA256`) required by Akamai API gateways.
+* **`pandas`** *(Required for STREAMLIT Only)*: An advanced data parsing engine used to transform raw, heavily nested JSON config payloads into clean dataframes.
+* **`streamlit`** *(Required for STREAMLIT Only)*: A web rendering engine that builds a dashboard out of a Python script on a local server.
 
-* **`requests`**: Handles the underlying synchronous HTTP/HTTPS communication layer to Akamai's Edge API endpoints.
-* **`edgegrid-python` (`akamai-edgegrid`)**: The official Akamai authentication signing library. It intercepts outgoing requests and hooks into them to generate custom HTTP headers (`EG1-HMAC-SHA256`) required by Akamai API gateways.
-* **(for Streamlit only)*:*
-* **`pandas`**: An advanced data analysis engine used to transform raw, jagged JSON rule-tree payloads into clean, flat relational tables.
-* **`streamlit`** *(Required for Web App version only)*: A reactive UI framework that transforms python scripts into data dashboards natively, running a local web-server interface.
+---
 
-### 2. Step-by-Step Package Installation
+### 2. Isolated Target Installation Steps
 
-It is strongly recommended to install these dependencies inside an isolated Python environment to prevent conflicts with your system packages.
+Choose the command block that matches the specific application flavor you intend to deploy:
 
-#### Option A: Quick Installation (Global/User Space)
-If you do not wish to use a virtual environment, install the compilation bundle directly to your user path via terminal:
+#### Scenario A: Installing Only the Standalone CLI Utility
+If you are only running the pure terminal-based version (`siteshield_auditor_cli.py`), you only need the baseline API communication stack:
+
 ```bash
-pip install requests edgegrid-python pandas streamlit
+# Optional: Setup and activate environment
+python3 -m venv cli-env
+source cli-env/bin/activate
+
+# Install bare minimum requirements
+pip install requests edgegrid-python
 ```
 
-#### Option B: Clean Isolation Installation (Recommended)
-```bash
-# 1. Create a pristine python virtual environment
-python3 -m venv tool-env
+#### Scenario B: Installing the Streamlit Web Application (Fresh Setup)
+If you want to run the full dashboard panel application interface (2_SiteShield_Origins.py) from scratch:
 
-# 2. Activate the environment path
+```Bash
+# Create and activate environment
+python3 -m venv tool-env
 source tool-env/bin/activate
 
-# 3. Upgrade package installer to prevent legacy caching issues
+# Upgrade installer and install the complete dashboard stack
 pip install --upgrade pip
-
-# 4. Install the absolute dependency stack cleanly
 pip install requests edgegrid-python pandas streamlit
 ```
+
+#### Scenario C: Injecting into an Existing Streamlit Platform (Toolbox)
+If your team already runs a virtual environment environment hosting a toolbox instance (like your active project management matrix platform), you only need to ensure the Akamai-specific calling libraries are updated inside that current runtime environment scope:
+
+```Bash
+# Activate your pre-existing environment container
+source tool-env/bin/activate
+
+# Inject the necessary core authentication components without touching streamlit/pandas
+pip install requests edgegrid-python
+```
+
 
 ### 3. Akamai API Credentials (~/.edgerc) Setup
 The scripts will look for your API credentials inside a hidden configuration file in your home directory named .edgerc.
