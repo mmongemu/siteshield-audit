@@ -3,7 +3,7 @@
 A collection of professional automation utilities designed to securely map Akamai configurations, identify active **Site Shield** perimeters, and extract backend **Origin** topologies across an entire enterprise account. 
 
 This repository includes two versions of the tool:
-1. **Streamlit Web Application** (`2_SiteShield_Origins.py`) — A highly interactive dashboard with dynamic account searching, live countdowns, visual progress bars, and data exports.
+1. **Streamlit Web Application** (`2_SiteShield_Auditor.py`) — A highly interactive dashboard with dynamic account searching, live countdowns, visual progress bars, and data exports.
 2. **Standalone CLI Utility** (`siteshield_auditor_cli.py`) — A pure terminal-based version optimized for lightweight execution on a macOS shell environment.
 
 Both scripts implement **Recursive Tree Crawling** to locate deeply nested configuration behaviors and include **Exponential Backoff Automation** to safely recover from `429 Rate Limit` thresholds without losing data.
